@@ -12,9 +12,6 @@ class Product(models.Model):
         default=ProductStatusEnum.AVAILABLE,
     )
 
-    def is_available(self) -> bool:
-        return self.status == ProductStatusEnum.AVAILABLE and self.count > 0
-
     def __str__(self) -> str:
         return str(self.title)
 
