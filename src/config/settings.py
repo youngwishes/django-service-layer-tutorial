@@ -120,13 +120,6 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-REST_FRAMEWORK = {
-    "EXCEPTION_HANDLER": "core.service.service_exception_handler",
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
-    ],
-}
-
 
 LOGGING = {
     "version": 1,
