@@ -20,6 +20,11 @@ class Customer(models.Model):
     )
     balance = models.PositiveIntegerField("количество рублей на балансе")
 
+    def can_buy_max_count_of(self, product: Product) -> int:
+        if product.price > 0:
+            return self.balance // product.price
+        return 0
+
     class Meta:
         verbose_name = "заказчик"
         verbose_name_plural = "Заказчики"

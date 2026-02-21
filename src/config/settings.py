@@ -138,9 +138,17 @@ LOGGING = {
         },
     },
     "loggers": {
-        "apps": {
+        "core": {
             "handlers": ["logstash"],
             "level": "INFO",
         }
     },
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    "EXCEPTION_HANDLER": "core.service.handle_error.service_exception_handler",
 }

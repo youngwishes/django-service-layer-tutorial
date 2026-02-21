@@ -1,6 +1,6 @@
-from rest_framework import permissions
+from rest_framework.permissions import BasePermission
 
 
-class CustomerRequired(permissions.BasePermission):
+class CustomerRequired(BasePermission):
     def has_permission(self, request, view) -> bool:
-        return bool(getattr(request.user, "customer", None))
+        return getattr(request.user, "customer", None)
