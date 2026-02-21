@@ -32,8 +32,8 @@ def make_request(token: str, product: int, count: int = 1) -> None:
     requests.post(
         API_URL,
         json={
-            "id": product,
-            "count": count,
+            "product_id": product,
+            "quantity": count,
         },
         headers={"Authorization": f"Token {token}"},
     )
