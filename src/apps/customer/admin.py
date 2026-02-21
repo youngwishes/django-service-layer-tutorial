@@ -5,5 +5,5 @@ from apps.customer.models import Customer
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ["pk", "balance"]
+    list_display = ["pk", "balance", "user"]
     list_select_related = ["user"]

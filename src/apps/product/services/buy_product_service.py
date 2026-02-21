@@ -3,6 +3,7 @@ from apps.customer.models import Customer
 from apps.product.exceptions import ProductNotFound, NotEnoughBalance, ProductNotAvailable, OutOfStock
 from apps.product.models import Product
 from apps.product.services.dtos import BuyProductIn
+from config.container import container
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
@@ -41,3 +42,10 @@ class BuyProductService:
         customer.save(update_fields=["balance"])
 
         return product.pk
+
+
+def buy_product_service_factory(data: dict) -> BuyProductService:
+    return BuyProductService(product_in=BuyProductIn(**data))
+
+
+container.register("BuyProductService", factory=buy_product_service_factory)
