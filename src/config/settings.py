@@ -138,7 +138,7 @@ LOGGING = {
         },
     },
     "loggers": {
-        "apps": {
+        "core": {
             "handlers": ["logstash"],
             "level": "INFO",
         }
