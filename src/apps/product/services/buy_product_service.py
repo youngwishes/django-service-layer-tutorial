@@ -4,12 +4,14 @@ from apps.product.exceptions import ProductNotFound, NotEnoughBalance, ProductNo
 from apps.product.models import Product
 from apps.product.services.dtos import BuyProductIn
 from config.container import container
+from core.service import log_service_error
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
 class BuyProductService:
     product_in: BuyProductIn
 
+    @log_service_error
     def __call__(self, *, customer: Customer) -> int:
         product = Product.objects.filter(pk=self.product_in.product_id).first()
         if product is None:
@@ -20,12 +22,12 @@ class BuyProductService:
             raise NotEnoughBalance(
                 product=dict(id=self.product_in.product_id, quantity=self.product_in.quantity),
             )
-        if not product.is_available:
-            raise ProductNotAvailable(
-                product=dict(id=self.product_in.product_id, quantity=self.product_in.quantity),
-            )
         if self.product_in.quantity > product.count:
             raise OutOfStock(
+                product=dict(id=self.product_in.product_id, quantity=self.product_in.quantity),
+            )
+        if not product.is_available:
+            raise ProductNotAvailable(
                 product=dict(id=self.product_in.product_id, quantity=self.product_in.quantity),
             )
 
